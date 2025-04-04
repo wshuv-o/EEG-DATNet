@@ -1,0 +1,19 @@
+# Ignore the processed folder
+/processed/
+
+# Ignore the dataset folder
+/dataset/
+
+# Ignore Python bytecode and pycache folder
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore other potential unnecessary files
+*.log
+*.bak
+*.swp
+
+# Ignore virtual environments (if you use one)
+venv/
+env/

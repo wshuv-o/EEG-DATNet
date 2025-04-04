@@ -1,6 +1,6 @@
-batch_size: 10
+batch_size: 32
 data_path: processed
-epochs: 2000
+epochs: 20
 lr: 0.0002
 nGPU: 0
 network: TransNet

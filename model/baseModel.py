@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import os
 import copy
 import itertools
-from mpl_toolkits.axes_grid1 import host_subplot
+#from mpl_toolkits.axes_grid1 import host_subplot
 from datetime import datetime
 import random
 
@@ -126,8 +126,8 @@ class baseModel():
         return aug_data, aug_label
 
     def train_test(self, train_dataset, test_dataset):
-        train_dataloader = DataLoader(train_dataset, batch_size=self.batchsize, shuffle=True, num_workers=4)
-        test_dataloader = DataLoader(test_dataset, batch_size=self.batchsize, num_workers=4)
+        train_dataloader = DataLoader(train_dataset, batch_size=self.batchsize, shuffle=True, num_workers=8)
+        test_dataloader = DataLoader(test_dataset, batch_size=self.batchsize, num_workers=8)
 
         best_acc = 0
         avg_acc = 0
@@ -144,8 +144,8 @@ class baseModel():
                     # data augmentation
                     aug_data, aug_label = self.data_augmentation(train_data, train_label)
 
-                    train_data = torch.cat((train_data, aug_data), axis=0)
-                    train_label = torch.cat((train_label, aug_label), axis=0)
+                    train_data = torch.cat((train_data.to(self.device), aug_data.to(self.device)), axis=0)
+                    train_label = torch.cat((train_label.to(self.device), aug_label.to(self.device)), axis=0)
 
                     train_data = train_data.type(torch.FloatTensor).to(self.device)
                     train_label = train_label.type(torch.LongTensor).to(self.device)

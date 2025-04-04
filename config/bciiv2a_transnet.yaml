@@ -22,9 +22,9 @@ preferred_device: gpu
 nGPU: 0
 random_seed: 0
 
-batch_size: 10
+batch_size: 32
 
-epochs: 2000
+epochs: 20
 
 lr: 0.0002
 

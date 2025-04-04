@@ -1,5 +1,5 @@
 # Model
-network: DualStreamEEGNet
+network: NeuroTransNet
 network_args: 
   num_classes: 4
   num_samples: 1000

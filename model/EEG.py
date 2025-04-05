@@ -82,7 +82,29 @@ class AdvancedFeedForward(nn.Module):
         x = self.dropout(x)
 
         return x
+# Define Spiking Activation Layer
+class SpikingActivation(torch.autograd.Function):
+    @staticmethod
+    def forward(ctx, input, threshold):
+        ctx.save_for_backward(input)
+        ctx.threshold = threshold
+        return (input >= threshold).float()
 
+    @staticmethod
+    def backward(ctx, grad_output):
+        input, = ctx.saved_tensors
+        grad_input = grad_output.clone()
+        valid = (input >= ctx.threshold - 0.5) & (input <= ctx.threshold + 0.5)
+        return grad_input * valid.float(), None
+
+class SpikingActivationLayer(nn.Module):
+    def __init__(self, threshold=1.0):
+        super().__init__()
+        self.threshold = threshold
+
+    def forward(self, x):
+        return SpikingActivation.apply(x, self.threshold)
+    
 class EnhancedTransformerBlock(nn.Module):
     """Advanced transformer block with pre-normalization architecture"""
     def __init__(self, embed_dim, num_heads, fc_ratio, attn_drop=0.5, fc_drop=0.5):
@@ -111,7 +133,7 @@ class NeuroTransNet(nn.Module):
     EEG signal processing with enhanced feature extraction capabilities.
     """
     def __init__(self, num_classes=4, num_samples=1000, num_channels=22, embed_dim=32, pool_size=50, 
-    pool_stride=15, num_heads=8, fc_ratio=4, depth=4, attn_drop=0.5, fc_drop=0.5):
+    pool_stride=15, num_heads=8, fc_ratio=4, depth=4,spike_threshold=0.50 , attn_drop=0.5, fc_drop=0.5):
         super().__init__()
         # Multi-scale temporal convolutions for comprehensive feature extraction
         self.temporal_conv_small = nn.Conv2d(1, embed_dim//4, (1, 15), padding=(0, 7))
@@ -121,11 +143,13 @@ class NeuroTransNet(nn.Module):
         
         # Normalization for improved training stability
         self.batch_norm1 = nn.BatchNorm2d(embed_dim)
-        
+        self.spike_act1 = SpikingActivationLayer(spike_threshold)
+
         # Spatial feature extraction
         self.spatial_conv = nn.Conv2d(embed_dim, embed_dim, (num_channels, 1))
         self.batch_norm2 = nn.BatchNorm2d(embed_dim)
         self.activation = nn.ELU()
+        self.spike_act2 = SpikingActivationLayer(spike_threshold)
 
         # Dual-path feature pooling
         self.variance_pooling = EnhancedVariancePooling(pool_size, pool_stride)
@@ -182,11 +206,13 @@ class NeuroTransNet(nn.Module):
         # Feature fusion
         x = torch.cat((x1, x2, x3, x4), dim=1)
         x = self.batch_norm1(x)
-
+        x = self.spike_act1(x)
+        
         # Spatial feature extraction
         x = self.spatial_conv(x)
         x = self.batch_norm2(x)
         x = self.activation(x)
+        x = self.spike_act2(x)
         x = x.squeeze(dim=2)  # [batch, embed_dim, samples]
 
         # Dual-path feature pooling

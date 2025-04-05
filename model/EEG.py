@@ -12,6 +12,7 @@ def attention(query, key, value):
     out = torch.einsum('bhqk,bhkd->bhqd', attn, value)
     return out, attn
 
+
 class EnhancedVariancePooling(nn.Module):
     """Advanced variance-based pooling with logarithmic normalization"""
     def __init__(self, kernel_size, stride):
@@ -123,7 +124,28 @@ class EnhancedTransformerBlock(nn.Module):
         res = self.layernorm2(out)
         output = out + self.feed_forward(res)
         return output
-
+class AttentionLayer(nn.Module):
+    """Self-attention layer for temporal feature emphasis"""
+    def __init__(self, input_dim):
+        super().__init__()
+        self.query = nn.Linear(input_dim, input_dim)
+        self.key = nn.Linear(input_dim, input_dim)
+        self.value = nn.Linear(input_dim, input_dim)
+        self.scale = np.sqrt(input_dim)
+        
+    def forward(self, x):
+        # x shape: [batch, seq_len, features]
+        q = self.query(x)  # [batch, seq_len, features]
+        k = self.key(x)    # [batch, seq_len, features]
+        v = self.value(x)  # [batch, seq_len, features]
+        
+        # Compute attention scores
+        scores = torch.bmm(q, k.transpose(1, 2)) / self.scale  # [batch, seq_len, seq_len]
+        attn_weights = F.softmax(scores, dim=2)  # [batch, seq_len, seq_len]
+        
+        # Apply attention weights
+        context = torch.bmm(attn_weights, v)  # [batch, seq_len, features]
+        return context
 class NeuroTransNet(nn.Module):
     """
     Advanced EEG analysis model with multi-scale temporal processing,
@@ -133,7 +155,7 @@ class NeuroTransNet(nn.Module):
     EEG signal processing with enhanced feature extraction capabilities.
     """
     def __init__(self, num_classes=4, num_samples=1000, num_channels=22, embed_dim=32, pool_size=50, 
-    pool_stride=15, num_heads=8, fc_ratio=4, depth=4,spike_threshold=0.50 , attn_drop=0.5, fc_drop=0.5):
+    pool_stride=15, num_heads=8, fc_ratio=4, depth=4, lstm_hidden=64, lstm_layers=2,spike_threshold=0.50 , attn_drop=0.5, fc_drop=0.5):
         super().__init__()
         # Multi-scale temporal convolutions for comprehensive feature extraction
         self.temporal_conv_small = nn.Conv2d(1, embed_dim//4, (1, 15), padding=(0, 7))
@@ -162,19 +184,26 @@ class NeuroTransNet(nn.Module):
         self.dropout = nn.Dropout()
 
         # Transformer-based feature integration
-        self.transformer_blocks = nn.ModuleList(
-            [EnhancedTransformerBlock(embed_dim, num_heads, fc_ratio, attn_drop, fc_drop) for i in range(depth)]
-        )
+        # self.transformer_blocks = nn.ModuleList(
+        #     [EnhancedTransformerBlock(embed_dim, num_heads, fc_ratio, attn_drop, fc_drop) for i in range(depth)]
+        # )
 
-        # Feature encoding and classification
-        self.feature_encoder = nn.Sequential(
-            nn.Conv2d(122, 64, (2, 1)),
-            nn.BatchNorm2d(64),
-            nn.ELU()
-        )
-        
-        # Final classification layer
-        self.classifier = nn.Linear(embed_dim*self.temporal_embedding_dim, num_classes)
+        # # Feature encoding and classification
+        # self.feature_encoder = nn.Sequential(
+        #     nn.Conv2d(122, 64, (2, 1)),
+        #     nn.BatchNorm2d(64),
+        #     nn.ELU()
+        # )
+                # Bi-LSTM (bidirectional so output features are 2 * lstm_hidden)
+        self.lstm = nn.LSTM(input_size=embed_dim, hidden_size=lstm_hidden, 
+                            num_layers=lstm_layers, batch_first=True, bidirectional=True)
+
+        # The two branches (avg and var) are concatenated:
+        # Flattened feature vector size = (lstm_hidden * 2) * temp_embedding_dim * 2
+        self.fc = nn.Linear(31232, num_classes)
+
+        # # Final classification layer
+        # self.classifier = nn.Linear(embed_dim*self.temporal_embedding_dim, num_classes)
         
         # Initialize weights for optimal convergence
     #     self._initialize_weights()
@@ -228,20 +257,24 @@ class NeuroTransNet(nn.Module):
         x2 = rearrange(x2, 'b d n -> b n d')
 
         # Apply transformer blocks for feature integration
-        for transformer in self.transformer_blocks:
-            x1 = transformer(x1)
-            x2 = transformer(x2)
-        
+        # for transformer in self.transformer_blocks:
+        #     x1 = transformer(x1)
+        #     x2 = transformer(x2)
+                # Pass through LSTM (each branch independently)
+        x1, _ = self.lstm(x1)  # -> (batch, temp_embedding_dim, 2*lstm_hidden)
+        x2, _ = self.lstm(x2)  # -> (batch, temp_embedding_dim, 2*lstm_hidden)
+
         # Prepare for feature encoding
         x1 = x1.unsqueeze(dim=2)
         x2 = x2.unsqueeze(dim=2)
 
         # Feature fusion
         x = torch.cat((x1, x2), dim=2)
-        x = self.feature_encoder(x)
+        # x = self.feature_encoder(x)
 
         # Final classification
         x = x.reshape(x.size(0), -1)
-        out = self.classifier(x)
+        print(f"Shape before fc: {x.shape}")
+        out = self.fc(x)
 
         return out

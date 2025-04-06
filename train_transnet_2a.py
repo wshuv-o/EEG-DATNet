@@ -73,7 +73,7 @@ def main(config):
         model.train_test(train_dataset, test_dataset)
 
 if __name__ == '__main__':
-    configFile = 'config/bciiv2a_transnet.yaml'
+    configFile = 'config/ip_transnet.yaml'
     file = open(configFile, 'r', encoding='utf-8')
     config = yaml.full_load(file)
     file.close()

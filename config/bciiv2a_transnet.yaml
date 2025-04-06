@@ -18,13 +18,13 @@ data_path: processed
 out_folder: output
 
 # Training
-preferred_device: cpu
+preferred_device: gpu
 nGPU: 0
 random_seed: 0
 
 batch_size: 32
 
-epochs: 20
+epochs: 200
 
 lr: 0.0002
 

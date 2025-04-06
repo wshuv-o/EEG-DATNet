@@ -100,6 +100,7 @@ class TransNet(nn.Module):
         self.temp_conv2 = nn.Conv2d(1, embed_dim//4, (1, 25), padding=(0, 12))
         self.temp_conv3 = nn.Conv2d(1, embed_dim//4, (1, 51), padding=(0, 25))
         self.temp_conv4 = nn.Conv2d(1, embed_dim//4, (1, 65), padding=(0, 32))
+        
         self.bn1 = nn.BatchNorm2d(embed_dim)
         self.spatial_conv = nn.Conv2d(embed_dim, embed_dim, (num_channels, 1))
 

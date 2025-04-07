@@ -8,7 +8,7 @@ def load_BCI42_data(dataset_path, data_file):
     data_path = os.path.join(dataset_path, data_file + '_data.npy')
     label_path = os.path.join(dataset_path, data_file + '_label.npy')
 
-    data = np.load(data_path, allow_pickle=True)
+    data = np.load(data_path, allow_pickle=True) #------------------allow pickle can be removed----------=
     label = np.load(label_path, allow_pickle=True)
 
     #print(data_file, 'load success')

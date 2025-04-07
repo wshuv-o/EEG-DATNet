@@ -1,0 +1,23 @@
+batch_size: 10
+data_path: dataset2
+epochs: 200
+lr: 2.0e-05
+nGPU: 0
+network: TransNet
+network_args:
+  attn_drop: 0.1
+  depth: 14
+  embed_dim: 32
+  fc_drop: 0.5
+  fc_ratio: 4
+  num_channels: 22
+  num_classes: 8
+  num_heads: 4
+  num_samples: 1000
+  pool_size: 50
+  pool_stride: 15
+num_classes: 8
+num_segs: 16
+out_folder: output
+preferred_device: gpu
+random_seed: 0

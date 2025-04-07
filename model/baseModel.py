@@ -87,7 +87,7 @@ class baseModel():
 
         # Loop over each class for data augmentation
         for cls in range(self.num_classes):
-            cls_idx = np.where(label == cls)[0]  # Get indices for the current class
+            cls_idx = np.where(np.atleast_1d(label) == cls)[0]  # Get indices for the current class ------remove atleast----------
             cls_data = data[cls_idx]  # Get the data for that class
             data_size = cls_data.shape[0]  # Number of trials for this class
 
@@ -143,8 +143,9 @@ class baseModel():
                 for train_data, train_label in train_dataloader:
 
                     # data augmentation
-                    aug_data, aug_label = self.data_augmentation(train_data, train_label)
-                    train_data, train_label = train_data.to(self.device), train_label.to(self.device)
+                    xx, yy = self.data_augmentation(train_data, train_label)
+                    aug_data, aug_label = xx.to(self.device), yy.to(self.device)
+                    train_data, train_label = train_data.to(self.device), train_label.to(self.device)  #--------------------un comment this----------------
 
                     train_data = torch.cat((train_data, aug_data), axis=0)
                     train_label = torch.cat((train_label, aug_label), axis=0)

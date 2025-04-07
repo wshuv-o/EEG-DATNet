@@ -7,6 +7,7 @@ from visdom import Visdom
 from model.TransNet import TransNet
 from model.CRNNNet import CRNNNet
 from model.EEG import NeuroTransNet 
+from model.TransNet_wo_transformer import TransNet_wo_transformer
 from model.baseModel import baseModel
 import time
 import os
@@ -73,7 +74,7 @@ def main(config):
         model.train_test(train_dataset, test_dataset)
 
 if __name__ == '__main__':
-    configFile = 'config/ip_transnet.yaml'
+    configFile = 'config/bciiv2a_transnet.yaml'
     file = open(configFile, 'r', encoding='utf-8')
     config = yaml.full_load(file)
     file.close()

@@ -18,15 +18,15 @@
 
 # # for file in data_files:
 # #     # Read raw data
-# #     print("dhakdka")
+
 # #     raw_data = mne.io.read_raw_gdf(os.path.join(data_path, file), preload=True, verbose=False)
-# #     print("dhakka")
+
 # #     # Get events from annotations
 # #     raw_events, all_event_id = mne.events_from_annotations(raw_data)
-# #     print("bang")
+
 # #     # Manually adjust event IDs and convert to uint16
 # #     raw_events[:, 2] = raw_events[:, 2].astype(np.uint16)  # Ensure event IDs are uint16
-# #     print("rgbvfgbnghn", all_event_id)
+
 # #     # Process data further (converting to uV)
 # #     raw_data = mne.io.RawArray(raw_data.get_data() * 1e6, raw_data.info)
 

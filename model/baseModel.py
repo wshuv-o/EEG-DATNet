@@ -41,41 +41,6 @@ class baseModel():
         else:
             self.device = torch.device('cpu')
         print("Code will be running on device ", self.device)
-
-    # data: num_trials * channels * sample points
-    def data_augmentation_IGNORE(self, data, label):
-        aug_data = []
-        aug_label = []
-
-        N, C, T = data.shape
-        seg_size = T // self.num_segs
-        aug_data_size = self.batchsize // self.num_classes
-        
-        for cls in range(self.num_classes):
-            cls_idx = np.where(label == cls)
-            cls_data = data[cls_idx]
-            data_size = cls_data.shape[0]
-            if data_size == 0 or data_size == 1:
-                continue
-            temp_aug_data = np.zeros((aug_data_size, C, T))
-            for i in range(aug_data_size):
-                rand_idx = np.random.randint(0, data_size, self.num_segs)
-                for j in range(self.num_segs):
-                    temp_aug_data[i, :, j*seg_size:(j+1)*seg_size] = cls_data[rand_idx[j], :, j*seg_size:(j+1)*seg_size]
-            aug_data.append(temp_aug_data)
-            aug_label.extend([cls]*aug_data_size)
-
-        aug_data = np.concatenate(aug_data, axis=0)
-        aug_label = np.array(aug_label)
-
-        aug_shuffle = np.random.permutation(len(aug_data))
-        aug_data = aug_data[aug_shuffle, :, :]
-        aug_label = aug_label[aug_shuffle]
-
-        aug_data = torch.from_numpy(aug_data)
-        aug_label = torch.from_numpy(aug_label)
-
-        return aug_data, aug_label
     
     def data_augmentation(self, data, label):
         aug_data = []

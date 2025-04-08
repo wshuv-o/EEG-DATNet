@@ -67,6 +67,10 @@ archspec @ file:///croot/archspec_1709217642129/work
 ...
 
 
+
+=======
+
+
 ![image](https://github.com/user-attachments/assets/24c62527-ee2f-4db6-abc6-b632a0ce21fe)
 
 # eeg
@@ -92,4 +96,3 @@ to illustrate the reduction of ocular artifacts.
 ![image](https://github.com/user-attachments/assets/8257c725-d247-459c-9842-4476ef7bf713)
 ------------------
 ![WhatsApp Image 2025-04-08 at 14 01 54_a1f7a901](https://github.com/user-attachments/assets/b24c9895-ce76-466f-b2f4-f3d91b6fb6d2)
-=======

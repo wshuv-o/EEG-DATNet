@@ -1,3 +1,8 @@
+
+
+
+
+
 # BCI-EEG: EEG Data Processing for Brain-Computer Interface
 
 This repository contains code and resources for processing EEG data for Brain-Computer Interface (BCI) applications using a novel deep learning model. The goal is to enhance the accuracy and efficiency of EEG signal classification for real-time BCI tasks.

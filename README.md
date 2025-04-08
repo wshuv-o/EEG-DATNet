@@ -1,4 +1,45 @@
-# Brain Train
+# NeuroTransNet: EEG Signal Analysis Using Neural Networks
+
+## Overview
+NeuroTransNet is a deep learning-based model designed for EEG (Electroencephalography) signal analysis. It leverages advanced neural network techniques, including hybrid architectures and attention mechanisms, to process and classify EEG signals, with applications in brain-computer interfaces (BCIs), health diagnostics, and cognitive state monitoring.
+
+This repository provides code and guidelines for setting up the environment, running experiments, and evaluating the performance of the NeuroTransNet model in EEG signal classification tasks.
+
+## Key Features
+
+- EEG Signal Classification: Preprocesses and classifies EEG signals into meaningful categories such as cognitive states or health conditions.
+- Hybrid Neural Network Architecture: Utilizes a Classical -> Quantum -> Classical architecture for efficient signal processing.
+- Dual Attention Mechanism: Focuses on relevant parts of the EEG signal to improve model accuracy and interpretability.
+- Customizable: Can be adapted to various EEG datasets for different research and clinical applications.
+
+## Dependencies
+
+The project relies on a number of Python packages essential for signal processing, machine learning, and deep learning tasks, including those necessary for EEG data handling.
+
+### Core Packages
+- PyTorch==2.6.0: Deep learning framework.
+- NumPy==2.1.3: Numerical computation.
+- scikit-learn==1.6.1: Machine learning algorithms.
+- scipy==1.15.2: Scientific computing tools.
+- matplotlib==3.10.1: Plotting library for visualizations.
+- MNE==0.23.0: For processing EEG signals.
+- tqdm==4.64.1: For progress bars in loops.
+- einops==0.8.1: For advanced tensor operations.
+
+### Additional Packages
+- Biosig==3.9.0: For biosignal processing and analysis.
+- PyYAML==6.0.2: For configuration management.
+- requests==2.26.0: For making HTTP requests.
+- Opencv==4.11.0.86: For image processing tasks if required for EEG visualization.
+
+Below is the full list of required packages:
+
+```text
+anaconda-anon-usage @ file:///C:/b/abs_e8r_zga7xy/croot/anaconda-anon-usage_1732732454901/work
+annotated-types @ file:///C:/b/abs_0dmaoyhhj3/croot/annotated-types_1709542968311/work
+archspec @ file:///croot/archspec_1709217642129/work
+...
+
 
 ![image](https://github.com/user-attachments/assets/24c62527-ee2f-4db6-abc6-b632a0ce21fe)
 

@@ -170,7 +170,7 @@ class NeuroTransNet(nn.Module):
 
         temp_embedding_dim = (num_samples - pool_size) // pool_stride + 1
 
-        self.dropout = nn.Dropout()
+        self.dropout = nn.Dropout(0.6)
 
         self.transformer_encoders = nn.ModuleList(
             [TransformerEncoder(embed_dim, num_heads, fc_ratio, attn_drop, fc_drop) for i in range(depth)]

@@ -3,7 +3,14 @@
 ![image](https://github.com/user-attachments/assets/24c62527-ee2f-4db6-abc6-b632a0ce21fe)
 
 # eeg
-![download (13)](https://github.com/user-attachments/assets/c481ff78-7d6a-41af-8589-1ab68af98117)
+
+![image](https://github.com/user-attachments/assets/99d8b62b-955c-4d7f-af7a-1d480221d250)
+fig: Visualization of artifact removal from frontal EEG channels.
+The signals before (blue) and after (yellow) ICA processing are compared
+to illustrate the reduction of ocular artifacts.
+
+---
+
 ![download (15)](https://github.com/user-attachments/assets/f8d7e24d-2f2c-43c6-8f25-a76630d02f54)
 
 ![download (22)](https://github.com/user-attachments/assets/17444056-785f-42e6-9d48-1da5850fbbf8)
@@ -18,14 +25,3 @@
 ![image](https://github.com/user-attachments/assets/8257c725-d247-459c-9842-4476ef7bf713)
 
 ------------------
-# fmri
-
-![downloadfasdf](https://github.com/user-attachments/assets/72b20730-8327-4b25-a77e-3bbd2e960584)
-
-![download (23)](https://github.com/user-attachments/assets/c74e3f6e-8c99-4696-87be-bbf69c373922)
-
-
-![download (24)](https://github.com/user-attachments/assets/1f69887d-21fd-4613-b9fa-187318407d6d)
-
-![download (25)](https://github.com/user-attachments/assets/49b536d7-844d-4d81-bc6a-e7b8c65acebb)
-

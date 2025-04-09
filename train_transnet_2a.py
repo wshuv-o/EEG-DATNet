@@ -7,6 +7,7 @@ from visdom import Visdom
 from model.TransNet import TransNet
 from model.CRNNNet import CRNNNet
 from model.EEG import NeuroTransNet 
+from model.EEGTH import NeuroTransNetEEGTH 
 from model.TransNet_wo_transformer import TransNet_wo_transformer
 from model.baseModel import baseModel
 import time
@@ -59,8 +60,8 @@ def main(config):
         train_data, train_labels = load_BCI42_data(data_path, train_datafile)
         #test_data, test_labels = load_BCI42_data(data_path, test_datafile)
 
-        train_dataset = eegDataset(train_data[63:], train_labels[63:])
-        test_dataset = eegDataset(train_data[:63], train_labels[:63])
+        train_dataset = eegDataset(train_data[4000:], train_labels[4000:])
+        test_dataset = eegDataset(train_data[:4000], train_labels[:4000])
 
         net_args = config['network_args']
         net = eval(config['network'])(**net_args)
@@ -74,7 +75,7 @@ def main(config):
         model.train_test(train_dataset, test_dataset)
 
 if __name__ == '__main__':
-    configFile = 'config/bciiv2a_transnet.yaml'
+    configFile = 'config/dataset3.yaml'
     file = open(configFile, 'r', encoding='utf-8')
     config = yaml.full_load(file)
     file.close()

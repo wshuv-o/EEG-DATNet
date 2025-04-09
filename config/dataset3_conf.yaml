@@ -1,0 +1,33 @@
+# Model
+network: NeuroTransNetEEGTH
+network_args: 
+  num_classes: 200
+  num_samples: 100
+  num_channels: 17
+  embed_dim: 16
+  pool_size: 20
+  pool_stride: 10
+  num_heads: 8
+  fc_ratio: 4
+  depth: 2
+  attn_drop: 0.5
+  fc_drop: 0.5
+
+# Data
+data_path: dataset3
+out_folder: output
+
+# Training
+preferred_device: gpu
+nGPU: 0
+random_seed: 0
+
+batch_size: 1000
+
+epochs: 200
+
+lr: 0.02
+
+# Data augmentation
+num_classes: 200
+num_segs: 8

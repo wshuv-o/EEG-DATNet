@@ -1,6 +1,6 @@
 # Model
 network: NeuroTransNet
-network_args: 
+network_args:
   num_classes: 8
   num_samples: 1000
   num_channels: 22
@@ -14,7 +14,8 @@ network_args:
   fc_drop: 0.5
 
 # Data
-data_path: dataset2
+data_path: dataset/innerspeech
+
 out_folder: output
 
 # Training

@@ -3,6 +3,7 @@
 
 # Ignore the dataset folder
 /dataset/
+/output/
 
 # Ignore Python bytecode and pycache folder
 __pycache__/

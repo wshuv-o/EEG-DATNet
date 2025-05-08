@@ -6,9 +6,9 @@ import numpy as np
 from visdom import Visdom
 from model.TransNet import TransNet
 from model.CRNNNet import CRNNNet
-from model.EEG import NeuroTransNet 
+from model.DATNet import NeuroTransNet 
 from model.EEGTH import NeuroTransNetEEGTH 
-from model.TransNet_wo_transformer import TransNet_wo_transformer
+from model.DATNet_wo_transformer import TransNet_wo_transformer
 from model.baseModel import baseModel
 import time
 import os

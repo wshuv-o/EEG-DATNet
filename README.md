@@ -52,7 +52,7 @@ to illustrate the reduction of ocular artifacts.
 ## 📁 Project Structure
 
 =======
-# NeuroTransNet: EEG Signal Analysis Using Neural Networks
+# NeuroTransNet: Dual Attention Transformer for EEG Signal Decoding
 
 ## Overview
 NeuroTransNet is a deep learning-based model designed for EEG (Electroencephalography) signal analysis. It leverages advanced neural network techniques, including hybrid architectures and attention mechanisms, to process and classify EEG signals, with applications in brain-computer interfaces (BCIs), health diagnostics, and cognitive state monitoring.

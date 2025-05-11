@@ -1,4 +1,4 @@
-# BCI-EEG: EEG Data Processing for Brain-Computer Interface
+# EEG-DATNet: Dual Attention Transformer for EEG Signal Decoding
 
 This repository contains code and resources for processing EEG data for Brain-Computer Interface (BCI) applications using a novel deep learning model. The goal is to enhance the accuracy and efficiency of EEG signal classification for real-time BCI tasks.
  
@@ -52,10 +52,10 @@ to illustrate the reduction of ocular artifacts.
 ## 📁 Project Structure
 
 =======
-# NeuroTransNet
+# EEG-DATNet
 
 ## Overview
-NeuroTransNet is a novel hybrid deep learning architecture designed for robust classification of Electroencephalography (EEG) signals in brain-computer interfaces (BCIs). It addresses challenges such as non-stationarity, high dimensionality, and noise in EEG data by integrating multi-scale temporal convolutions, spatial convolutions, dual statistical pooling, a spiking-inspired activation function, and a dual-attention transformer encoder. NeuroTransNet achieves state-of-the-art performance on EEG benchmark datasets, including motor imagery and cognitive state decoding tasks.
+EEG-DATNet is a novel hybrid deep learning architecture designed for robust classification of Electroencephalography (EEG) signals in brain-computer interfaces (BCIs). It addresses challenges such as non-stationarity, high dimensionality, and noise in EEG data by integrating multi-scale temporal convolutions, spatial convolutions, dual statistical pooling, a spiking-inspired activation function, and a dual-attention transformer encoder. EEG-DATNet achieves state-of-the-art performance on EEG benchmark datasets, including motor imagery and cognitive state decoding tasks.
 
 ## Key Features
 - **Multi-scale Temporal Convolution**: Captures EEG dynamics across multiple temporal resolutions (60 ms to 260 ms) using parallel 2D convolutions with kernel sizes of 15, 25, 51, and 65.
@@ -66,13 +66,14 @@ NeuroTransNet is a novel hybrid deep learning architecture designed for robust c
 - **Preprocessing Pipeline**: Leverages MNE-Python for filtering, Independent Component Analysis (ICA), and epoching to enhance signal quality.
 
 ## Architecture
-NeuroTransNet processes EEG signals through the following components:
+EEG-DATNet processes EEG signals through the following components:
 1. **Input Layer**: Accepts EEG data with shape `(1, 1000, 22)` (time samples, channels).
 2. **Multi-scale Temporal Convolution**: Four parallel Conv2D layers with 32 filters each, followed by batch normalization.
 3. **Spatial Convolution**: Depthwise Conv2D to capture inter-channel correlations.
 4. **Dual Pooling**: Average and variance pooling to extract statistical features.
 5. **Dual-Attention Transformer Encoder**: Combines spatial and channel attention for refined feature representations.
-6. **Classification Head**: Concatenates pooling outputs, applies a convolutional encoder, and uses a linear layer for final classification.
+   ![DualAtt drawio (1)_page-0001](https://github.com/user-attachments/assets/c21131bc-4164-42a7-b526-498dc39ff352)
+7. **Classification Head**: Concatenates pooling outputs, applies a convolutional encoder, and uses a linear layer for final classification.
 
 For detailed layer specifications, refer to Table 1 in the original paper.
 
@@ -135,7 +136,7 @@ For detailed layer specifications, refer to Table 1 in the original paper.
    - Outputs classification accuracy and Cohen's κ-score.
 
 ## Performance
-NeuroTransNet was evaluated on three EEG benchmark datasets:
+EEG-DATNet was evaluated on three EEG benchmark datasets:
 - **BCI Competition IV-2a** (4-class motor imagery): 83.51% accuracy
 - **BCI Competition IV-2b** (2-class motor imagery): 69.93% accuracy
 - **Thinking Out Loud (ToL)** (cognitive state decoding): 39.28% accuracy

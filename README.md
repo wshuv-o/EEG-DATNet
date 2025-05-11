@@ -67,6 +67,8 @@ EEG-DATNet is a novel hybrid deep learning architecture designed for robust clas
 
 ## Architecture
 EEG-DATNet processes EEG signals through the following components:
+![image](https://github.com/user-attachments/assets/e1014b6d-ed38-4d54-baf1-3f04f328ad9f)
+
 1. **Input Layer**: Accepts EEG data with shape `(1, 1000, 22)` (time samples, channels).
 2. **Multi-scale Temporal Convolution**: Four parallel Conv2D layers with 32 filters each, followed by batch normalization.
 3. **Spatial Convolution**: Depthwise Conv2D to capture inter-channel correlations.
